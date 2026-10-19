@@ -1,0 +1,7 @@
+lbmbench
+*.o
+__pycache__/
+figures/
+tables/
+results.csv
+ptxas_report.txt

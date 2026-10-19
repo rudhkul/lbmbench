@@ -1,0 +1,13 @@
++ ./lbmbench --mode info
+device,NVIDIA A100-SXM4-40GB
+cc,8.0
+sm_count,108
+global_mem_GiB,39.49
+l2_MiB,40.0
+smem_per_block_KiB,48
+regs_per_sm,65536
+sm_clock_MHz,1410
+mem_clock_MHz,1215
+bus_bits,5120
+theoretical_bw_GBs,1555.2
+note: theoretical_bw assumes DDR factor 2; for GDDR7 check the vendor value.

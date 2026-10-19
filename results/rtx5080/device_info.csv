@@ -1,0 +1,13 @@
++ ./lbmbench --mode info
+device,NVIDIA GeForce RTX 5080
+cc,12.0
+sm_count,84
+global_mem_GiB,15.55
+l2_MiB,64.0
+smem_per_block_KiB,48
+regs_per_sm,65536
+sm_clock_MHz,2670
+mem_clock_MHz,15001
+bus_bits,256
+theoretical_bw_GBs,960.1
+note: theoretical_bw assumes DDR factor 2; for GDDR7 check the vendor value.
