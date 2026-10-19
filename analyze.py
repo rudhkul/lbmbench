@@ -20,13 +20,15 @@ import matplotlib.pyplot as plt
 SERIES = ["#2a78d6", "#eb6834", "#1baf7a", "#eda100", "#e87ba4", "#008300", "#6250d6", "#e34948"]
 INK, INK2, GRID = "#0b0b0b", "#52514e", "#dddcd8"
 plt.rcParams.update({
-    "font.family": "serif", "font.size": 8.5, "axes.titlesize": 9, "axes.labelsize": 8.5,
+    "font.family": "serif", "font.size": 8, "axes.titlesize": 8.5, "axes.labelsize": 8,
+    "xtick.labelsize": 7.5, "ytick.labelsize": 7.5, "legend.fontsize": 7.5,
     "axes.edgecolor": INK2, "axes.labelcolor": INK, "xtick.color": INK2, "ytick.color": INK2,
     "axes.grid": True, "grid.color": GRID, "grid.linewidth": 0.5, "axes.axisbelow": True,
     "axes.spines.top": False, "axes.spines.right": False, "legend.frameon": False,
     "lines.linewidth": 1.6, "lines.markersize": 4.5, "savefig.bbox": "tight", "savefig.dpi": 300,
     "pdf.fonttype": 42, "ps.fonttype": 42,
 })
+TW = 5.15  # journal text width in inches; figures are included at this width
 PREC_ORDER = ["fp64", "mixed", "fp32", "fp16s", "fp16c"]
 PREC_LABEL = {"fp64": "FP64", "mixed": "FP64/FP32 (mixed)", "fp32": "FP32",
               "fp16s": "FP32/FP16 (IEEE)", "fp16c": "FP32/FP16 (custom)"}
@@ -44,7 +46,7 @@ def gpu_label(rows, d):
     if not rows:
         return os.path.basename(d)
     n = rows[0]["gpu"].replace("_", " ").replace("NVIDIA GeForce ", "").replace("NVIDIA ", "")
-    return n.replace("A100-SXM4-40GB", "A100 SXM4 40GB")
+    return n.replace("A100-SXM4-40GB", "A100")
 
 
 def med(xs):
@@ -86,8 +88,8 @@ def bars(ax, groups, series, val, colors, labels, ylabel):
 
 
 def fig_patterns(G, figdir):
-    """E2: propagation pattern x number format, % of measured copy bandwidth and MLUPS."""
-    fig, axes = plt.subplots(len(G), 2, figsize=(7.0, 2.3 * len(G)), squeeze=False)
+    """E2: propagation pattern x number format (MLUPS) with bandwidth ceilings."""
+    fig, axes = plt.subplots(len(G), 2, figsize=(TW, 2.05 * len(G) + 0.7), squeeze=False)
     for gi, g in enumerate(G):
         a = agg(g["perf"], "E2", ["q", "stream", "prec"])
         for qi, q in enumerate(["19", "27"]):
@@ -96,56 +98,62 @@ def fig_patterns(G, figdir):
             bars(ax, groups, PREC_ORDER, lambda s, p: a.get((q, s, p), {}).get("mlups"),
                  SERIES, [PREC_LABEL[p] for p in PREC_ORDER], "MLUPS")
             ax.set_xticklabels({"abpull": "AB\npull", "abpush": "AB\npush", "aa": "AA", "ep": "EP"}[s] for s in groups)
-            ax.set_title(f"{g['name']} - D3Q{q}", color=INK)
-            # bandwidth ceilings for 8/4/2-byte storage
+            ax.set_title(f"{g['name']}, D3Q{q}", color=INK)
             if g["bw"] == g["bw"]:
                 for bytes_, ls in [(8, ":"), (4, "--"), (2, "-.")]:
                     ax.axhline(g["bw"] * 1e3 / (2 * int(q) * bytes_), color=INK2, lw=0.7, ls=ls)
-            if gi == 0 and qi == 1:
-                ax.legend(fontsize=7, loc="upper left", bbox_to_anchor=(1.0, 1.0))
-    fig.text(0.5, -0.02, "Horizontal lines: copy-bandwidth ceiling for 8-, 4- and 2-byte storage (dotted, dashed, dash-dot).",
-             ha="center", color=INK2, fontsize=7)
-    fig.tight_layout(); fig.savefig(os.path.join(figdir, "bench_patterns.pdf")); plt.close(fig)
+    h, l = axes[0][0].get_legend_handles_labels()
+    fig.legend(h, l, loc="lower center", ncol=3, bbox_to_anchor=(0.5, 0.0))
+    fig.tight_layout(rect=(0, 0.1, 1, 1))
+    fig.savefig(os.path.join(figdir, "bench_patterns.pdf")); plt.close(fig)
 
 
 def fig_layout_collision(G, figdir):
-    fig, axes = plt.subplots(len(G), 3, figsize=(10.0, 2.4 * len(G)), squeeze=False)
+    """Rows: E1 layout, E3 collision FP32, E3 collision FP64; columns: GPUs."""
+    fig, axes = plt.subplots(3, len(G), figsize=(TW, 6.9), squeeze=False)
     for gi, g in enumerate(G):
         a1 = agg(g["perf"], "E1", ["q", "stream", "layout", "prec"])
-        ax = axes[gi][0]
+        ax = axes[0][gi]
         groups = [("19", "abpull"), ("19", "aa"), ("27", "abpull"), ("27", "aa")]
         ser = [("soa", "fp32"), ("aos", "fp32"), ("soa", "fp64"), ("aos", "fp64")]
         bars(ax, groups, ser, lambda gg, s: a1.get((gg[0], gg[1], s[0], s[1]), {}).get("mlups"),
-             SERIES, [f"{l.upper()} {p.upper()}" for l, p in ser], "MLUPS")
-        ax.set_xticklabels([f"D3Q{q}\n{STREAM_LABEL[s]}" for q, s in groups])
-        ax.set_title(f"{g['name']} - memory layout (BGK)", color=INK); ax.legend(fontsize=6.5, ncol=2)
+             SERIES, [f"{l.upper()}, {p.upper()}" for l, p in ser], "MLUPS")
+        ax.set_xticklabels([f"Q{q}\n{'AB pull' if s == 'abpull' else 'AA'}" for q, s in groups])
+        ax.set_title(f"{g['name']}: layout (BGK)", color=INK)
+        ax.set_ylim(0, ax.get_ylim()[1] * 1.4)
+        ax.legend(ncol=2, loc="upper center", fontsize=7, columnspacing=1.0, handlelength=1.2)
         a3 = agg(g["perf"], "E3", ["q", "stream", "prec", "coll"])
         groups = [("19", "abpull"), ("19", "ep"), ("19", "mr"), ("27", "abpull"), ("27", "ep"), ("27", "mr")]
-        ser = ["bgk", "trt", "reg"]
-        for col, prec in [(1, "fp32"), (2, "fp64")]:
-            ax = axes[gi][col]
+        for row, prec in [(1, "fp32"), (2, "fp64")]:
+            ax = axes[row][gi]
             def v(gg, c, prec=prec):
                 return a3.get((gg[0], gg[1], prec, c), {}).get("mlups")
-            bars(ax, groups, ser, v, SERIES, ["BGK", "TRT", "Regularised"], f"MLUPS ({prec.upper()})")
-            ax.set_xticklabels([f"Q{q}\n{STREAM_LABEL[s].replace('Esoteric pull','EP').replace('Moments (MR)','MR')}"
-                                for q, s in groups])
-            ax.set_title(f"{g['name']} - collision, {prec.upper()}", color=INK); ax.legend(fontsize=6.5)
-    fig.tight_layout(); fig.savefig(os.path.join(figdir, "bench_layout_collision.pdf")); plt.close(fig)
+            bars(ax, groups, ["bgk", "trt", "reg"], v, SERIES, ["BGK", "TRT", "REG"], "MLUPS")
+            ax.set_xticklabels([f"Q{q}\n{ {'abpull': 'AB', 'ep': 'EP', 'mr': 'MR'}[s] }" for q, s in groups])
+            ax.set_title(f"{g['name']}: collision, {prec.upper()}", color=INK)
+            ax.set_ylim(0, ax.get_ylim()[1] * 1.35)
+            ax.legend(ncol=3, loc="upper center", fontsize=7, columnspacing=1.0, handlelength=1.2)
+    fig.tight_layout(h_pad=1.2)
+    fig.savefig(os.path.join(figdir, "bench_layout_collision.pdf")); plt.close(fig)
 
 
 def fig_size(G, figdir):
-    fig, axes = plt.subplots(1, len(G), figsize=(3.5 * len(G), 2.4), squeeze=False)
+    fig, axes = plt.subplots(1, len(G), figsize=(TW, 2.6), squeeze=False)
     for gi, g in enumerate(G):
         a = agg(g["perf"], "E4", ["stream", "prec", "nx"])
         ax = axes[0][gi]
         for j, (s, p) in enumerate([("abpull", "fp32"), ("ep", "fp32"), ("ep", "fp16s")]):
             pts = sorted((int(k[2]) ** 3, v["mlups"]) for k, v in a.items() if k[0] == s and k[1] == p)
             if pts:
-                ax.plot([x for x, _ in pts], [y for _, y in pts], "-o", color=SERIES[j],
-                        label=f"{STREAM_LABEL[s]}, {PREC_LABEL[p]}")
-        ax.set_xscale("log"); ax.set_xlabel("lattice nodes"); ax.set_ylabel("MLUPS (D3Q19, BGK)")
-        ax.set_title(g["name"], color=INK); ax.legend(fontsize=6.5)
-    fig.tight_layout(); fig.savefig(os.path.join(figdir, "bench_size.pdf")); plt.close(fig)
+                ax.plot([x for x, _ in pts], [y for _, y in pts], "-o", color=SERIES[j], ms=3.5,
+                        label=f"{'AB pull' if s == 'abpull' else 'EP'}, {'FP32' if p == 'fp32' else 'FP16S'}")
+        ax.set_xscale("log"); ax.set_xlabel("lattice nodes")
+        ax.set_ylabel("MLUPS (D3Q19, BGK)" if gi == 0 else "")
+        ax.set_title(g["name"], color=INK)
+    h, l = axes[0][0].get_legend_handles_labels()
+    fig.legend(h, l, loc="lower center", ncol=3, bbox_to_anchor=(0.5, 0.0))
+    fig.tight_layout(rect=(0, 0.1, 1, 1))
+    fig.savefig(os.path.join(figdir, "bench_size.pdf")); plt.close(fig)
 
 
 def fig_accuracy(G, figdir):
@@ -153,35 +161,35 @@ def fig_accuracy(G, figdir):
     rows = g["acc"]
     if not rows:
         return
-    fig, axes = plt.subplots(1, 2, figsize=(7.0, 3.0))
+    fig, axes = plt.subplots(2, 1, figsize=(TW, 5.4))
+    short = {"fp64": "FP64", "mixed": "mixed", "fp32": "FP32", "fp16s": "FP16S", "fp16c": "FP16C"}
     ax = axes[0]
     for j, p in enumerate(PREC_ORDER):
         for sh, ls, mk in [("1", "-", "o"), ("0", "--", "s")]:
             pts = sorted((float(r["U"]), float(r["l2err"])) for r in rows
                          if r["tag"] == "E6a" and r["prec"] == p and r["shift"] == sh)
             if pts:
-                ax.plot([x for x, _ in pts], [y for _, y in pts], ls, marker=mk, color=SERIES[j],
+                ax.plot([x for x, _ in pts], [y for _, y in pts], ls, marker=mk, color=SERIES[j], ms=3.5,
                         mfc="white" if sh == "0" else SERIES[j],
-                        label=PREC_LABEL[p] + ("" if sh == "1" else " (no shift)"))
+                        label=short[p] + ("" if sh == "1" else ", no shift"))
     ax.set_xscale("log"); ax.set_yscale("log"); ax.set_xlabel("velocity amplitude $U$ (lattice units)")
-    ax.set_ylabel("relative $L_2$ velocity error"); ax.set_title("TGV, $L=128$, $\\tau=0.8$", color=INK)
-    ax.legend(fontsize=5.8, ncol=2, loc="upper center", bbox_to_anchor=(0.5, -0.3))
+    ax.set_ylabel("relative $L_2$ error"); ax.set_title("(a) TGV, $L=128$, $\\tau=0.8$", color=INK)
+    ax.legend(loc="center left", bbox_to_anchor=(1.01, 0.5), fontsize=7)
     ax = axes[1]
-    k = 0
     for p in ["fp64", "fp32", "fp16s", "fp16c"]:
         for c, ls in [("bgk", "-"), ("reg", "--")]:
             pts = sorted((int(r["nx"]), float(r["l2err"])) for r in rows
                          if r["tag"] == "E6b" and r["prec"] == p and r["coll"] == c)
             if pts:
-                ax.plot([x for x, _ in pts], [y for _, y in pts], ls, marker="o", color=SERIES[PREC_ORDER.index(p)],
-                        label=f"{PREC_LABEL[p]}, {c.upper()}")
-            k += 1
+                ax.plot([x for x, _ in pts], [y for _, y in pts], ls, marker="o", ms=3.5,
+                        color=SERIES[PREC_ORDER.index(p)], label=f"{short[p]}, {c.upper()}")
     xs = [32, 512]
     ax.plot(xs, [2e-3 * (32 / x) ** 2 for x in xs], color=INK2, lw=0.8, ls=":", label="2nd order")
     ax.set_xscale("log", base=2); ax.set_yscale("log"); ax.set_xlabel("$L$ (diffusive scaling, fixed Re)")
-    ax.set_ylabel("relative $L_2$ velocity error"); ax.set_title("grid convergence", color=INK)
-    ax.legend(fontsize=5.8, ncol=2, loc="upper center", bbox_to_anchor=(0.5, -0.3))
-    fig.tight_layout(); fig.savefig(os.path.join(figdir, "bench_accuracy.pdf")); plt.close(fig)
+    ax.set_ylabel("relative $L_2$ error"); ax.set_title("(b) grid convergence", color=INK)
+    ax.legend(loc="center left", bbox_to_anchor=(1.01, 0.5), fontsize=7)
+    fig.tight_layout()
+    fig.savefig(os.path.join(figdir, "bench_accuracy.pdf")); plt.close(fig)
 
 
 def energy_rows(g):
