@@ -1,0 +1,230 @@
++ ./lbmbench --mode verify --q 19 --prec fp64 --coll bgk --n 24 --vsteps 51 --U 0.05 --csv results/23f6fd45ae3f_NVIDIA_A100-SXM4-40GB/verify.csv
+verify abpull soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify abpush soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify aa     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify ep     soa vs abpull/soa after 51 steps: max|diff| = 2.220e-16 (OK, round-off)
+verify abpull aos vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify abpush aos vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify aa     aos vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify ep     aos vs abpull/soa after 51 steps: max|diff| = 2.220e-16 (OK, round-off)
+reference mass drift per node: 3.518e-18
+VERIFY: all patterns consistent
++ ./lbmbench --mode verify --q 19 --prec fp64 --coll trt --n 24 --vsteps 51 --U 0.05 --csv results/23f6fd45ae3f_NVIDIA_A100-SXM4-40GB/verify.csv
+verify abpull soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify abpush soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify aa     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify ep     soa vs abpull/soa after 51 steps: max|diff| = 2.220e-16 (OK, round-off)
+reference mass drift per node: -4.658e-19
+VERIFY: all patterns consistent
++ ./lbmbench --mode verify --q 19 --prec fp64 --coll reg --n 24 --vsteps 51 --U 0.05 --csv results/23f6fd45ae3f_NVIDIA_A100-SXM4-40GB/verify.csv
+verify abpull soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify abpush soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify aa     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify ep     soa vs abpull/soa after 51 steps: max|diff| = 2.220e-16 (OK, round-off)
+verify mr (moment repr.) vs abpull+reg: max|diff| = 2.220e-16 (OK) (round-off level expected)
+reference mass drift per node: -1.060e-18
+VERIFY: all patterns consistent
++ ./lbmbench --mode verify --q 19 --prec fp32 --coll bgk --n 24 --vsteps 51 --U 0.05 --csv results/23f6fd45ae3f_NVIDIA_A100-SXM4-40GB/verify.csv
+verify abpull soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify abpush soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify aa     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify ep     soa vs abpull/soa after 51 steps: max|diff| = 1.192e-07 (OK, round-off)
+verify abpull aos vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify abpush aos vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify aa     aos vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify ep     aos vs abpull/soa after 51 steps: max|diff| = 1.192e-07 (OK, round-off)
+reference mass drift per node: 2.220e-09
+VERIFY: all patterns consistent
++ ./lbmbench --mode verify --q 19 --prec fp32 --coll trt --n 24 --vsteps 51 --U 0.05 --csv results/23f6fd45ae3f_NVIDIA_A100-SXM4-40GB/verify.csv
+verify abpull soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify abpush soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify aa     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify ep     soa vs abpull/soa after 51 steps: max|diff| = 1.192e-07 (OK, round-off)
+reference mass drift per node: 1.664e-09
+VERIFY: all patterns consistent
++ ./lbmbench --mode verify --q 19 --prec fp32 --coll reg --n 24 --vsteps 51 --U 0.05 --csv results/23f6fd45ae3f_NVIDIA_A100-SXM4-40GB/verify.csv
+verify abpull soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify abpush soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify aa     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify ep     soa vs abpull/soa after 51 steps: max|diff| = 1.192e-07 (OK, round-off)
+verify mr (moment repr.) vs abpull+reg: max|diff| = 1.192e-07 (OK) (round-off level expected)
+reference mass drift per node: 2.065e-09
+VERIFY: all patterns consistent
++ ./lbmbench --mode verify --q 19 --prec mixed --coll bgk --n 24 --vsteps 51 --U 0.05 --csv results/23f6fd45ae3f_NVIDIA_A100-SXM4-40GB/verify.csv
+verify abpull soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify abpush soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify aa     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify ep     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+reference mass drift per node: 3.088e-13
+VERIFY: all patterns consistent
++ ./lbmbench --mode verify --q 19 --prec mixed --coll trt --n 24 --vsteps 51 --U 0.05 --csv results/23f6fd45ae3f_NVIDIA_A100-SXM4-40GB/verify.csv
+verify abpull soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify abpush soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify aa     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify ep     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+reference mass drift per node: -7.815e-12
+VERIFY: all patterns consistent
++ ./lbmbench --mode verify --q 19 --prec mixed --coll reg --n 24 --vsteps 51 --U 0.05 --csv results/23f6fd45ae3f_NVIDIA_A100-SXM4-40GB/verify.csv
+verify abpull soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify abpush soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify aa     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify ep     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+reference mass drift per node: 8.934e-12
+VERIFY: all patterns consistent
++ ./lbmbench --mode verify --q 19 --prec fp16s --coll bgk --n 24 --vsteps 51 --U 0.05 --csv results/23f6fd45ae3f_NVIDIA_A100-SXM4-40GB/verify.csv
+verify abpull soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify abpush soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify aa     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify ep     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+reference mass drift per node: 8.878e-08
+VERIFY: all patterns consistent
++ ./lbmbench --mode verify --q 19 --prec fp16s --coll trt --n 24 --vsteps 51 --U 0.05 --csv results/23f6fd45ae3f_NVIDIA_A100-SXM4-40GB/verify.csv
+verify abpull soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify abpush soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify aa     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify ep     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+reference mass drift per node: 4.761e-08
+VERIFY: all patterns consistent
++ ./lbmbench --mode verify --q 19 --prec fp16s --coll reg --n 24 --vsteps 51 --U 0.05 --csv results/23f6fd45ae3f_NVIDIA_A100-SXM4-40GB/verify.csv
+verify abpull soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify abpush soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify aa     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify ep     soa vs abpull/soa after 51 steps: max|diff| = 7.272e-06 (OK, round-off)
+reference mass drift per node: 1.081e-07
+VERIFY: all patterns consistent
++ ./lbmbench --mode verify --q 19 --prec fp16c --coll bgk --n 24 --vsteps 51 --U 0.05 --csv results/23f6fd45ae3f_NVIDIA_A100-SXM4-40GB/verify.csv
+verify abpull soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify abpush soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify aa     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify ep     soa vs abpull/soa after 51 steps: max|diff| = 2.980e-06 (OK, round-off)
+reference mass drift per node: 4.739e-08
+VERIFY: all patterns consistent
++ ./lbmbench --mode verify --q 19 --prec fp16c --coll trt --n 24 --vsteps 51 --U 0.05 --csv results/23f6fd45ae3f_NVIDIA_A100-SXM4-40GB/verify.csv
+verify abpull soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify abpush soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify aa     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify ep     soa vs abpull/soa after 51 steps: max|diff| = 3.099e-06 (OK, round-off)
+reference mass drift per node: 2.587e-09
+VERIFY: all patterns consistent
++ ./lbmbench --mode verify --q 19 --prec fp16c --coll reg --n 24 --vsteps 51 --U 0.05 --csv results/23f6fd45ae3f_NVIDIA_A100-SXM4-40GB/verify.csv
+verify abpull soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify abpush soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify aa     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify ep     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+reference mass drift per node: 4.118e-08
+VERIFY: all patterns consistent
++ ./lbmbench --mode verify --q 27 --prec fp64 --coll bgk --n 24 --vsteps 51 --U 0.05 --csv results/23f6fd45ae3f_NVIDIA_A100-SXM4-40GB/verify.csv
+verify abpull soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify abpush soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify aa     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify ep     soa vs abpull/soa after 51 steps: max|diff| = 2.220e-16 (OK, round-off)
+verify abpull aos vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify abpush aos vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify aa     aos vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify ep     aos vs abpull/soa after 51 steps: max|diff| = 2.220e-16 (OK, round-off)
+reference mass drift per node: 3.959e-18
+VERIFY: all patterns consistent
++ ./lbmbench --mode verify --q 27 --prec fp64 --coll trt --n 24 --vsteps 51 --U 0.05 --csv results/23f6fd45ae3f_NVIDIA_A100-SXM4-40GB/verify.csv
+verify abpull soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify abpush soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify aa     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify ep     soa vs abpull/soa after 51 steps: max|diff| = 2.220e-16 (OK, round-off)
+reference mass drift per node: 4.819e-19
+VERIFY: all patterns consistent
++ ./lbmbench --mode verify --q 27 --prec fp64 --coll reg --n 24 --vsteps 51 --U 0.05 --csv results/23f6fd45ae3f_NVIDIA_A100-SXM4-40GB/verify.csv
+verify abpull soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify abpush soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify aa     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify ep     soa vs abpull/soa after 51 steps: max|diff| = 2.220e-16 (OK, round-off)
+verify mr (moment repr.) vs abpull+reg: max|diff| = 2.220e-16 (OK) (round-off level expected)
+reference mass drift per node: 3.132e-19
+VERIFY: all patterns consistent
++ ./lbmbench --mode verify --q 27 --prec fp32 --coll bgk --n 24 --vsteps 51 --U 0.05 --csv results/23f6fd45ae3f_NVIDIA_A100-SXM4-40GB/verify.csv
+verify abpull soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify abpush soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify aa     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify ep     soa vs abpull/soa after 51 steps: max|diff| = 1.192e-07 (OK, round-off)
+verify abpull aos vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify abpush aos vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify aa     aos vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify ep     aos vs abpull/soa after 51 steps: max|diff| = 1.192e-07 (OK, round-off)
+reference mass drift per node: -7.202e-10
+VERIFY: all patterns consistent
++ ./lbmbench --mode verify --q 27 --prec fp32 --coll trt --n 24 --vsteps 51 --U 0.05 --csv results/23f6fd45ae3f_NVIDIA_A100-SXM4-40GB/verify.csv
+verify abpull soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify abpush soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify aa     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify ep     soa vs abpull/soa after 51 steps: max|diff| = 1.192e-07 (OK, round-off)
+reference mass drift per node: -9.315e-10
+VERIFY: all patterns consistent
++ ./lbmbench --mode verify --q 27 --prec fp32 --coll reg --n 24 --vsteps 51 --U 0.05 --csv results/23f6fd45ae3f_NVIDIA_A100-SXM4-40GB/verify.csv
+verify abpull soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify abpush soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify aa     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify ep     soa vs abpull/soa after 51 steps: max|diff| = 1.192e-07 (OK, round-off)
+verify mr (moment repr.) vs abpull+reg: max|diff| = 1.192e-07 (OK) (round-off level expected)
+reference mass drift per node: 3.577e-10
+VERIFY: all patterns consistent
++ ./lbmbench --mode verify --q 27 --prec mixed --coll bgk --n 24 --vsteps 51 --U 0.05 --csv results/23f6fd45ae3f_NVIDIA_A100-SXM4-40GB/verify.csv
+verify abpull soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify abpush soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify aa     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify ep     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+reference mass drift per node: -9.062e-12
+VERIFY: all patterns consistent
++ ./lbmbench --mode verify --q 27 --prec mixed --coll trt --n 24 --vsteps 51 --U 0.05 --csv results/23f6fd45ae3f_NVIDIA_A100-SXM4-40GB/verify.csv
+verify abpull soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify abpush soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify aa     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify ep     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+reference mass drift per node: -7.922e-12
+VERIFY: all patterns consistent
++ ./lbmbench --mode verify --q 27 --prec mixed --coll reg --n 24 --vsteps 51 --U 0.05 --csv results/23f6fd45ae3f_NVIDIA_A100-SXM4-40GB/verify.csv
+verify abpull soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify abpush soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify aa     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify ep     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+reference mass drift per node: -6.667e-12
+VERIFY: all patterns consistent
++ ./lbmbench --mode verify --q 27 --prec fp16s --coll bgk --n 24 --vsteps 51 --U 0.05 --csv results/23f6fd45ae3f_NVIDIA_A100-SXM4-40GB/verify.csv
+verify abpull soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify abpush soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify aa     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify ep     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+reference mass drift per node: 3.319e-08
+VERIFY: all patterns consistent
++ ./lbmbench --mode verify --q 27 --prec fp16s --coll trt --n 24 --vsteps 51 --U 0.05 --csv results/23f6fd45ae3f_NVIDIA_A100-SXM4-40GB/verify.csv
+verify abpull soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify abpush soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify aa     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify ep     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+reference mass drift per node: -7.339e-08
+VERIFY: all patterns consistent
++ ./lbmbench --mode verify --q 27 --prec fp16s --coll reg --n 24 --vsteps 51 --U 0.05 --csv results/23f6fd45ae3f_NVIDIA_A100-SXM4-40GB/verify.csv
+verify abpull soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify abpush soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify aa     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify ep     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+reference mass drift per node: -2.720e-08
+VERIFY: all patterns consistent
++ ./lbmbench --mode verify --q 27 --prec fp16c --coll bgk --n 24 --vsteps 51 --U 0.05 --csv results/23f6fd45ae3f_NVIDIA_A100-SXM4-40GB/verify.csv
+verify abpull soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify abpush soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify aa     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify ep     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+reference mass drift per node: -3.905e-08
+VERIFY: all patterns consistent
++ ./lbmbench --mode verify --q 27 --prec fp16c --coll trt --n 24 --vsteps 51 --U 0.05 --csv results/23f6fd45ae3f_NVIDIA_A100-SXM4-40GB/verify.csv
+verify abpull soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify abpush soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify aa     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify ep     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+reference mass drift per node: 7.498e-08
+VERIFY: all patterns consistent
++ ./lbmbench --mode verify --q 27 --prec fp16c --coll reg --n 24 --vsteps 51 --U 0.05 --csv results/23f6fd45ae3f_NVIDIA_A100-SXM4-40GB/verify.csv
+verify abpull soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify abpush soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify aa     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+verify ep     soa vs abpull/soa after 51 steps: max|diff| = 0.000e+00 (bitwise identical)
+reference mass drift per node: 1.552e-08
+VERIFY: all patterns consistent

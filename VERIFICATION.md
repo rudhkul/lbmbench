@@ -19,31 +19,25 @@ The Esoteric Pull differences are identical on both GPUs, so they are not
 caused by architecture-specific code generation; they are consistent with a
 different order of floating-point operations in that kernel.
 
-## Note on `results/a100-sxm4-40gb/verify.log`
+## A100: original run and complete rerun with the released source
 
-The A100 run (Google Colab) used an earlier revision of `lbmbench.cu` whose
-verification step applied a single threshold of 1e-12 to all formats. With
-that threshold, the 11 FP32 and 16-bit Esoteric Pull differences listed above
-were printed as `CHECK`. The released revision uses format-dependent
-thresholds (1e-12 FP64/mixed, 1e-6 FP32, 1e-4 16-bit), which classify them as
-round-off; the RTX 5080 log was produced with the released revision.
+`results/a100-sxm4-40gb/` is the dataset used in the review (Google Colab,
+18 Oct 2026). That run used an earlier revision of `lbmbench.cu` whose
+verification step applied a single threshold of 1e-12 to all formats, so its
+`verify.log` labels the 11 FP32 and 16-bit Esoteric Pull differences listed
+above as `CHECK`. The released revision uses format-dependent thresholds
+(1e-12 FP64/mixed, 1e-6 FP32, 1e-4 16-bit). The two revisions differ **only**
+in this threshold and its label; see `records/a100_colab_run/` (executed
+notebook, exact source, and `source_diff_vs_release.patch`, 8 changed lines).
 
-The two revisions differ **only** in the verification threshold and its label
-(`lbmbench.cu`, function running `--mode verify`); all computational kernels
-used for the A100 performance, accuracy and energy measurements are identical
-to the released source. The evidence is in `records/a100_colab_run/`:
+`results/a100-sxm4-40gb-rerun/` is a complete rerun of all experiments with
+the released source (repository clone, Colab A100 SXM4 40GB, 19 Oct 2026,
+ECC on). Compared with the original run:
 
-- `lbmbench_colab_A100_run.ipynb`: the executed Colab notebook of the A100 run
-  (18 Oct 2026, CUDA 13.0, `sm_80`), with its outputs. Its file listing shows
-  the source sizes used (`lbmbench.cu` 39 424 bytes), and its printed results
-  match `results/a100-sxm4-40gb/` (e.g. 8993 MLUPS for D3Q19 FP32 AB pull).
-- `lbmbench_a100_run.cu`: the exact source of that run.
-- `source_diff_vs_release.patch`: its complete difference from the released
-  `lbmbench.cu` — the verification threshold and label only (8 changed lines).
-
-To regenerate the A100 log with the released code:
-
-```bash
-make ARCH=sm_80
-./run_all.sh verify      # expect: number of CHECK lines (should be 0): 0
-```
+| Quantity | Result |
+|---|---|
+| verification (`verify.log`) | 0 `CHECK`; all 140 differences identical to the original run |
+| accuracy (E6, 120 cases) | L2 errors bitwise identical |
+| throughput (E1-E5, 381 cases) | median ratio rerun/original 1.000; all within -1.2% / +2.9% |
+| energy per update (E7, 13 cases) | within 1.6% |
+| copy bandwidth | 1357 vs. 1358 GB/s |

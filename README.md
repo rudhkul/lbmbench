@@ -15,7 +15,8 @@ at a time while keeping everything else fixed:
 It accompanies the review article *GPU implementations of the lattice Boltzmann
 method: a review of algorithms, software and performance* (A. Kulkarni,
 manuscript in preparation). Raw measurements on an NVIDIA RTX 5080 and an
-NVIDIA A100 SXM4 40 GB are included under `results/`.
+NVIDIA A100 SXM4 40 GB are included under `results/` (`a100-sxm4-40gb-rerun/` is an
+independent repeat of the full A100 campaign with the released source).
 
 ## Requirements
 - NVIDIA GPU and CUDA toolkit (CUDA ≥ 12.8 for Blackwell, `sm_120`)
@@ -38,8 +39,8 @@ Every line should report `bitwise identical` or `OK`, and the script ends with
 `number of CHECK lines (should be 0): 0`. Small differences (round-off level)
 between patterns are expected for push and Esoteric Pull (compiler FMA
 contraction, or a different order of floating-point operations); the AA pattern is always bitwise identical to AB pull. See
-[VERIFICATION.md](VERIFICATION.md) for the recorded results and a note on the
-A100 log, which was produced with an earlier, stricter threshold.
+[VERIFICATION.md](VERIFICATION.md) for the recorded results, including a
+complete A100 rerun with the released source (0 CHECK; results reproduced).
 
 ## 2. Full campaign (about 20–40 min per GPU)
 ```bash
