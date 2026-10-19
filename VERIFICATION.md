@@ -36,8 +36,8 @@ ECC on). Compared with the original run:
 
 | Quantity | Result |
 |---|---|
-| verification (`verify.log`) | 0 `CHECK`; all 140 differences identical to the original run |
-| accuracy (E6, 120 cases) | L2 errors bitwise identical |
+| verification (`verify.log`) | 0 `CHECK`; all 140 differences identical to the original run (to the printed precision, 4 significant digits) |
+| accuracy (E6, 120 cases) | L2 errors and mass drift identical to the reported precision (CSV values with 6 significant digits) |
 | throughput (E1-E5, 381 cases) | median ratio rerun/original 1.000; all within -1.2% / +2.9% |
 | energy per update (E7, 13 cases) | within 1.6% |
 | copy bandwidth | 1357 vs. 1358 GB/s |

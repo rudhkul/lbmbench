@@ -2,11 +2,13 @@
 """Count FP64 instructions per lattice update in the compiled AB-pull SoA kernels.
 
 Compile only (no GPU needed):
-    nvcc -O3 -std=c++17 --expt-relaxed-constexpr -arch=sm_120 -cubin -o lb.cubin lbmbench.cu
+    nvcc -O3 -std=c++17 --expt-relaxed-constexpr -lineinfo -arch=sm_120 -cubin -o lb.cubin lbmbench.cu
     cuobjdump -sass lb.cubin > lb.sass
     python3 tools/count_fp64_sass.py lb.sass
 Each thread updates one lattice node, so the static count of the kernel is the
 count per update. DFMA, DADD and DMUL each occupy one FP64 issue slot.
+The counts reported in the review were obtained with CUDA 13.3.73 (the compiler
+used for the RTX 5080 measurements); CUDA 13.0.88 gives identical counts.
 """
 import collections, re, sys
 
