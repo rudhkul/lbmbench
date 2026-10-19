@@ -31,7 +31,17 @@ round-off; the RTX 5080 log was produced with the released revision.
 The two revisions differ **only** in the verification threshold and its label
 (`lbmbench.cu`, function running `--mode verify`); all computational kernels
 used for the A100 performance, accuracy and energy measurements are identical
-to the released source. To regenerate the A100 log with the released code:
+to the released source. The evidence is in `records/a100_colab_run/`:
+
+- `lbmbench_colab_A100_run.ipynb`: the executed Colab notebook of the A100 run
+  (18 Oct 2026, CUDA 13.0, `sm_80`), with its outputs. Its file listing shows
+  the source sizes used (`lbmbench.cu` 39 424 bytes), and its printed results
+  match `results/a100-sxm4-40gb/` (e.g. 8993 MLUPS for D3Q19 FP32 AB pull).
+- `lbmbench_a100_run.cu`: the exact source of that run.
+- `source_diff_vs_release.patch`: its complete difference from the released
+  `lbmbench.cu` — the verification threshold and label only (8 changed lines).
+
+To regenerate the A100 log with the released code:
 
 ```bash
 make ARCH=sm_80
