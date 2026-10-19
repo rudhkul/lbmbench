@@ -95,7 +95,7 @@ def fig_patterns(G, figdir):
             groups = ["abpull", "abpush", "aa", "ep"]
             bars(ax, groups, PREC_ORDER, lambda s, p: a.get((q, s, p), {}).get("mlups"),
                  SERIES, [PREC_LABEL[p] for p in PREC_ORDER], "MLUPS")
-            ax.set_xticklabels([STREAM_LABEL[s].replace('Esoteric pull', 'EP') for s in groups])
+            ax.set_xticklabels({"abpull": "AB\npull", "abpush": "AB\npush", "aa": "AA", "ep": "EP"}[s] for s in groups)
             ax.set_title(f"{g['name']} - D3Q{q}", color=INK)
             # bandwidth ceilings for 8/4/2-byte storage
             if g["bw"] == g["bw"]:

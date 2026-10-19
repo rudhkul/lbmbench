@@ -36,8 +36,10 @@ make FAST=1             # D3Q19 only, faster compile
 ```
 Every line should report `bitwise identical` or `OK`, and the script ends with
 `number of CHECK lines (should be 0): 0`. Small differences (round-off level)
-between patterns are expected for push and Esoteric Pull because of FMA
-contraction; the AA pattern is always bitwise identical to AB pull.
+between patterns are expected for push and Esoteric Pull (compiler FMA
+contraction, or a different order of floating-point operations); the AA pattern is always bitwise identical to AB pull. See
+[VERIFICATION.md](VERIFICATION.md) for the recorded results and a note on the
+A100 log, which was produced with an earlier, stricter threshold.
 
 ## 2. Full campaign (about 20–40 min per GPU)
 ```bash
